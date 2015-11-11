@@ -1,0 +1,57 @@
+\documentclass[10pt]{standalone}
+
+% Needed packages
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+% Command to read a number from file (the hspace is quite hacky...)
+\newcommand{\showodsf}[2]{%
+\mbox{\input{data/#1_#2_ods_f.txt}\hspace{-2.5pt}}%
+}
+
+\begin{document}
+\begin{tikzpicture}[/pgfplots/width=\linewidth, /pgfplots/height=\linewidth]
+    \begin{axis}[% Axis labels
+                 ymin=0,ymax=1,xmin=0,xmax=1,
+    			 % Axis labels
+        		 xlabel=Recall,
+        		 ylabel=Precision,
+         		 xlabel shift={-2pt},
+        		 ylabel shift={-3pt},
+         		 % General appearance
+		         font=\scriptsize,
+		         axis equal image=true,
+		         enlargelimits=false,
+		         clip=false,
+		         % Grids 
+        	     grid style=dotted, grid=both,
+                 major grid style={white!65!black},
+        		 minor grid style={white!85!black},
+		 		 xtick={0,0.1,...,1.1},
+        		 ytick={0,0.1,...,1.1},
+         		 minor xtick={0,0.02,...,1},
+		         minor ytick={0,0.02,...,1},
+        		 % Legend
+        		 legend style={at={(0,0)},
+                 		       anchor=south west}]
+        
+    % Iso-f curves
+    \foreach \f in {0.1,0.2,...,0.9}{%
+       \addplot[white!50!green,line width=0.2pt,domain=(\f/(2-\f)):1,samples=200,forget plot]{(\f*x)/(2*x-\f)};
+    }
+	
+	% Human partitions leave-one-out evaluation
+    \addplot+[only marks,red,mark=asterisk,mark size=1.7,thick] table[x=Recall,y=Precision] {data/fb_human.txt};
+    \addlegendentry{Human [\showodsf{fb}{human}]}
+
+	% MCG
+    \addplot+[red,solid,mark=none, thick,forget plot] table[x=Recall,y=Precision] {data/fb_MCG.txt};
+    \addplot+[red,solid,mark=o, mark size=1.3, thick] table[x=Recall,y=Precision] {data/fb_MCG_ods.txt};
+    \addlegendentry{MCG-UCM [\showodsf{fb}{MCG}]}
+
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
+
