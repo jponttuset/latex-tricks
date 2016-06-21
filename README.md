@@ -4,3 +4,7 @@
 It features reading data from files, and a `foreach` loop. The example comes from the boundary evaluation of image segmentation.
 
 <img width="300" align="center" src="https://github.com/jponttuset/latex-tricks/blob/master/ims/precision-recall.png">
+
+- Matlab to LaTeX tables
+
+Write a LaTeX table from Matlab data, highlighting the maximum or minimum values per row or column.
