@@ -7,4 +7,4 @@ It features reading data from files, and a `foreach` loop. The example comes fro
 
 - Matlab to LaTeX tables
 
-Write a LaTeX table from Matlab data, highlighting the maximum or minimum values per row or column.
+Write a LaTeX table from Matlab data (folder `matlab`, highlighting the maximum or minimum values per row (`table_with_max_per_row.m`) or column (`table_with_max_per_column.m`).
